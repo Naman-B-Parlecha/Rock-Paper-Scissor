@@ -5,17 +5,23 @@ let currentScore = document.querySelector(".score");
 let gameresult = document.querySelector(".result");
 let compMove = document.querySelector(".computermove");
 let reset = document.querySelector(".reset");
-let score = {
+let score = JSON.parse(localStorage.getItem("data")) || {
   win: 0,
   lose: 0,
   tie: 0,
-}
+};
+
 currentScore.innerHTML = `${score.win}:${score.lose}`;
-reset.addEventListener('click',()=>{
-        score.win= 0,
-        score.lose= 0,
-        score.tie= 0
-        currentScore.innerHTML = `${score.win}:${score.lose}`;
+reset.addEventListener("click", () => {
+  localStorage.removeItem('data');
+  score = {
+    win:0,lose:0,tie:0
+  }
+  localStorage.setItem('data',JSON.stringify(score));
+  currentScore.innerHTML = `${score.win}:${score.lose}`;
+  compMove.innerHTML = ``;
+  gameresult.innerHTML = "";
+
 });
 function computer() {
   let computerMove = "";
@@ -65,6 +71,7 @@ function playGame(PlayerMove) {
       gameresult.innerHTML = "TIE";
     }
   }
+  localStorage.setItem("data", JSON.stringify(score));
   currentScore.innerHTML = `${score.win}:${score.lose}`;
   compMove.innerHTML = `computer played ${computerMove}`;
 }
