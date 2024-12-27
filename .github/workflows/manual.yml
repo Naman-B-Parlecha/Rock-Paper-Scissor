@@ -1,13 +1,16 @@
-name: Greeting Message
-on: 
-  pull_request:
-    types: [opened]
+name : Greeting Message
+
+on : 
+  pull_request :
+    types : [opened]
+    
 permissions:
   pull-requests: write
+  
 jobs:
   build:
     name: Making Greeting
-    run-on: [ubuntu-latest, window-latest]
+    runs-on: [ubuntu-latest, window-latest]
     steps: 
       - run : gh pr comment $PR_URL --body "Came cho mota bhai"
         env : 
